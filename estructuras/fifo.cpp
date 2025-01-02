@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <queue>  // Incluyendo la biblioteca queue
 
 #define STATUS_CONTINUAR 1
 
@@ -13,113 +14,13 @@ struct Data {
     int valor;
 };
 
-// Nodo de la cola
-struct Nodo {
-    Data Dato;
-    Nodo* siguiente;
-};
+// Funcion para generar numero aleatorio
+int int_aleatorio() {
+    return rand() % 100;
+}
 
-// Clase para gestionar la cola
-class Cola {
-private:
-    Nodo* frente;  // Primer nodo (frente) de la cola
-    Nodo* final;   // Último nodo (final) de la cola
-    int longitud;  // Número de elementos en la cola
-
-public:
-    // Constructor
-    Cola() {
-        frente = nullptr;
-        final = nullptr;
-        longitud = 0;
-    }
-
-    // Métodos para gestionar la cola
-    void encolar(Data dato) {
-        Nodo* nuevo_nodo = new Nodo;
-        nuevo_nodo->Dato = dato;
-        nuevo_nodo->siguiente = nullptr;
-
-        if (final == nullptr) {
-            frente = nuevo_nodo;
-            final = nuevo_nodo;
-        } else {
-            final->siguiente = nuevo_nodo;
-            final = nuevo_nodo;
-        }
-
-        longitud++;
-    }
-
-    void desencolar() {
-        if (frente == nullptr) {
-            std::cout << "La cola está vacía\n";
-            return;
-        }
-
-        Nodo* nodo_a_eliminar = frente;
-        frente = frente->siguiente;
-
-        if (frente == nullptr) {
-            final = nullptr;
-        }
-
-        delete nodo_a_eliminar;
-        longitud--;
-    }
-
-    Nodo* consultar_frente() {
-        return frente;
-    }
-
-    bool cola_vacia() {
-        return frente == nullptr;
-    }
-
-    int obtener_longitud() {
-        return longitud;
-    }
-
-    // Función para generar número aleatorio
-    static int int_aleatorio() {
-        return rand() % 100;
-    }
-
-    // Función para imprimir la cola
-    void imprimir_cola() {
-        Nodo* nodo_actual = frente;
-
-        std::cout << "Contenido de la cola:\n";
-        std::cout << "--------------------------------------------------\n";
-        std::cout << "|  i  |   Valor   |     Dirección     |   Siguiente   |\n";
-        std::cout << "--------------------------------------------------\n";
-
-        while (nodo_actual != nullptr) {
-            std::cout << "| " << nodo_actual->Dato.i << " | " << nodo_actual->Dato.valor
-                      << " | " << nodo_actual << " | " << nodo_actual->siguiente << " |\n";
-            nodo_actual = nodo_actual->siguiente;
-        }
-
-        std::cout << "--------------------------------------------------\n";
-    }
-
-    // Función para imprimir un nodo
-    void imprimir_nodo(Nodo* nodo) {
-        if (nodo == nullptr) {
-            std::cout << "El nodo es NULL. No se puede imprimir.\n";
-            return;
-        }
-
-        std::cout << "Detalles del nodo:\n";
-        std::cout << "ID: " << nodo->Dato.i << "\n";
-        std::cout << "Valor: " << nodo->Dato.valor << "\n";
-        std::cout << "Dirección: " << nodo << "\n";
-        std::cout << "Siguiente: " << nodo->siguiente << "\n";
-    }
-};
-
-// Función para la gestión de la consola
-void menu_consola(Cola& cola) {
+// Funcion para la gestion de la consola
+void menu_consola(std::queue<Data>& cola) {
     int interfaz = 1;
     int seleccion;
 
@@ -131,7 +32,7 @@ void menu_consola(Cola& cola) {
         std::cout << "3. Consultar frente de la cola\n";
         std::cout << "4. Consultar longitud de la cola\n";
         std::cout << "0. Fin programa\n\n";
-        std::cout << "> Seleccione una opción: ";
+        std::cout << "> Seleccione una opcion: ";
         std::cin >> seleccion;
         system("CLS");
 
@@ -140,38 +41,64 @@ void menu_consola(Cola& cola) {
                 id++;
                 Data dato;
                 dato.i = id;
-                dato.valor = Cola::int_aleatorio();
-                cola.encolar(dato);
+                dato.valor = int_aleatorio();
+                cola.push(dato);  // Usamos push para encolar
                 break;
             case 2:
-                cola.desencolar();
+                if (!cola.empty()) {
+                    cola.pop();  // Usamos pop para desencolar
+                } else {
+                    std::cout << "La cola esta vacia\n";
+                }
                 break;
-            case 3: {
-                Nodo* nodo = cola.consultar_frente();
-                cola.imprimir_nodo(nodo);
+            case 3:
+                if (!cola.empty()) {
+                    Data frente = cola.front();  // Consultamos el frente de la cola
+                    std::cout << "Frente de la cola:\n";
+                    std::cout << "ID: " << frente.i << "\n";
+                    std::cout << "Valor: " << frente.valor << "\n";
+                } else {
+                    std::cout << "La cola esta vacia\n";
+                }
                 break;
-            }
             case 4:
-                std::cout << "Longitud de la cola: " << cola.obtener_longitud() << "\n";
+                std::cout << "Longitud de la cola: " << cola.size() << "\n";
                 break;
             case 0:
                 std::cout << "Fin programa...\n";
                 exit(0);
             default:
-                std::cout << "Error: ingresó un valor incorrecto\n";
+                std::cout << "Error: ingreso un valor incorrecto\n";
                 break;
         }
-        cola.imprimir_cola();
+
+        // Imprimir los elementos de la cola
+        if (!cola.empty()) {
+            std::cout << "Contenido de la cola:\n";
+            std::cout << "--------------------------------------------------\n";
+            std::cout << "|  i  |   Valor   |\n";
+            std::cout << "--------------------------------------------------\n";
+
+            std::queue<Data> copia = cola;  // Copia de la cola para no modificarla mientras se imprime
+            while (!copia.empty()) {
+                Data dato = copia.front();
+                std::cout << "| " << dato.i << " | " << dato.valor << " |\n";
+                copia.pop();
+            }
+
+            std::cout << "--------------------------------------------------\n";
+        }
+
         system("PAUSE");
     }
 }
 
-// Función principal
+// Funcion principal
 int main() {
     ejecucion = 1;
     srand(time(NULL));
 
-    Cola cola;
+    std::queue<Data> cola;  // Usamos queue de la libreria estandar
 
     while (ejecucion == STATUS_CONTINUAR) {
         menu_consola(cola);
