@@ -162,78 +162,7 @@ C++ incluye una extensa biblioteca estandar que proporciona funcionalidades para
 - `<cmath>`: Para funciones matematicas avanzadas.
 - `<algorithm>`: Para algoritmos de ordenacion y busqueda.
 
-### 9. Como Son las Clases en C++
-Las clases en C++ son plantillas para crear objetos. Una clase define los atributos (datos) y metodos (funciones) que los objetos de esa clase tendran. La clase es la base de la programacion orientada a objetos en C++. Los atributos y metodos pueden tener diferentes niveles de acceso, como `public`, `protected` y `private`. C++ tambien soporta conceptos como la herencia, el polimorfismo y la sobrecarga de metodos.
-
-**Accesibilidad:**
-- `public`: Los miembros son accesibles desde cualquier parte del programa.
-- `protected`: Los miembros son accesibles desde la propia clase y las clases derivadas.
-- `private`: Los miembros son accesibles solo dentro de la propia clase.
-
-**Tipos de Datos en Clases:**
-Las clases pueden contener atributos de cualquier tipo de datos, como enteros, flotantes, cadenas, punteros, objetos de otras clases, entre otros.
-
-**Metodos:**
-Los metodos son funciones dentro de una clase que operan sobre los atributos de esa clase. Pueden ser:
-- Métodos públicos: Son accesibles desde fuera de la clase.
-- Métodos privados: Son solo accesibles desde dentro de la clase.
-- Métodos protegidos: Son accesibles dentro de la clase y en las clases derivadas.
-
-**Herencia:**
-La herencia permite que una clase derive de otra, heredando sus atributos y métodos. Esto facilita la reutilización de código y permite crear jerarquías de clases.
-
-**Polimorfismo:**
-El polimorfismo permite que una misma operación se ejecute de manera diferente dependiendo del objeto que la invoque. Esto puede lograrse mediante la sobrecarga de métodos o el uso de métodos virtuales.
-
-**Ejemplo:**
-
-```cpp
-#include <iostream>
-using namespace std;
-
-class Animal {
-public:
-    string nombre;
-
-    Animal(string n) : nombre(n) {}
-
-    virtual void hacerSonido() {
-        cout << nombre << " hace un sonido general." << endl;
-    }
-};
-
-class Perro : public Animal {
-public:
-    Perro(string n) : Animal(n) {}
-
-    void hacerSonido() override {
-        cout << nombre << " dice: Guau!" << endl;
-    }
-};
-
-class Gato : public Animal {
-public:
-    Gato(string n) : Animal(n) {}
-
-    void hacerSonido() override {
-        cout << nombre << " dice: Miau!" << endl;
-    }
-};
-
-int main() {
-    Animal* animal1 = new Perro("Fido");
-    Animal* animal2 = new Gato("Mittens");
-
-    animal1->hacerSonido(); // Guau!
-    animal2->hacerSonido(); // Miau!
-
-    delete animal1;
-    delete animal2;
-    return 0;
-}
-```
-
-## 10. Palabras claves comunes en C++ 
+## 9. Palabras claves comunes en C++ 
 
 ### `cout` y `<<`
 En C++, `cout` es un objeto de la biblioteca estándar de entrada/salida (`iostream`) que se utiliza para imprimir datos en la consola. Se encuentra en el espacio de nombres `std`. Para imprimir datos, se usa el operador `<<`, que se conoce como "operador de inserción". Este operador toma el dato que le sigue y lo envía a `cout` para que sea mostrado en la pantalla.
@@ -361,7 +290,7 @@ El operador `typeid` se utiliza para obtener el tipo de una expresión en tiempo
 **Ejemplo:**
 - `typeid(*obj).name();` devuelve el nombre del tipo de la instancia apuntada por `obj`.
 
-### 11. Operadores
+### 10. Operadores
 C++ incluye una gran variedad de operadores, como:
 - **Aritmeticos**: `+`, `-`, `*`, `/`, `%`.
 - **Comparacion**: `==`, `!=`, `>`, `<`, `>=`, `<=`.
@@ -369,7 +298,7 @@ C++ incluye una gran variedad de operadores, como:
 - **Asignacion**: `=`, `+=`, `-=`, `*=`, `/=`.
 - **Punteros**: `*`, `&`.
 
-### 12. Especificadores de Formato
+### 11. Especificadores de Formato
 C++ utiliza especificadores de formato para la entrada y salida de datos. Algunos de los especificadores mas comunes son:
 - `%d`: Para enteros.
 - `%f`: Para flotantes.
