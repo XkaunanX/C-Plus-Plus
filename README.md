@@ -228,7 +228,7 @@ C++ utiliza especificadores de formato para la entrada y salida de datos. Alguno
 - `%s`: Para cadenas.
 - `%p`: Para punteros.
 
-## Sintaxis particular de C++ 
+## Palabras claves comunes en C++ 
 
 ### `cout` y `<<`
 En C++, `cout` es un objeto de la biblioteca estándar de entrada/salida (`iostream`) que se utiliza para imprimir datos en la consola. Se encuentra en el espacio de nombres `std`. Para imprimir datos, se usa el operador `<<`, que se conoce como "operador de inserción". Este operador toma el dato que le sigue y lo envía a `cout` para que sea mostrado en la pantalla.
@@ -263,3 +263,95 @@ El operador `::`, conocido como "operador de resolución de ámbito", se utiliza
 
 **Ejemplo:**
 - `std::cout << "Hola, mundo!";` indica que `cout` es parte del espacio de nombres `std`.
+
+### `new` y `delete`
+En C++, `new` y `delete` son operadores para la gestión dinámica de memoria. A diferencia de C, donde se utilizan funciones como `malloc()` y `free()`, C++ introduce estos operadores para gestionar memoria en un formato más intuitivo y compatible con la orientación a objetos.
+
+- **`new`** se usa para asignar memoria dinámica, es decir, para crear objetos o variables en tiempo de ejecución. Devuelve un puntero al bloque de memoria recién asignado.
+- **`delete`** se usa para liberar memoria previamente asignada con `new`.
+
+**Ejemplo:**
+- `int* ptr = new int(10);` asigna memoria para un entero y lo inicializa a 10.
+- `delete ptr;` libera la memoria ocupada por el puntero `ptr`.
+
+### `namespace`
+Los espacios de nombres (`namespace`) en C++ son utilizados para organizar el código y evitar conflictos de nombres. Permiten agrupar funciones, clases y objetos bajo un mismo nombre para diferenciar sus contextos de uso.
+
+- **`namespace std`** es el espacio de nombres estándar que agrupa las clases y funciones comunes como `cout`, `cin`, `vector`, entre otros.
+- Se puede definir un espacio de nombres propio para organizar el código en proyectos grandes.
+
+**Ejemplo:**
+- `namespace miEspacio { int var; }` define un espacio de nombres con una variable `var`.
+- Para acceder a ella, se usaría `miEspacio::var`.
+
+### `auto` (Tipo Inferido)
+El tipo de una variable puede ser deducido automáticamente por el compilador utilizando la palabra clave `auto`. Esto facilita la declaración de variables sin necesidad de especificar explícitamente el tipo, especialmente en tipos complejos o al trabajar con contenedores de la STL.
+
+**Ejemplo:**
+- `auto x = 10;` deduce automáticamente que `x` es de tipo `int`.
+- `auto iter = v.begin();` deduce el tipo del iterador cuando se utiliza con contenedores de la STL.
+
+### `nullptr`
+En C++, `nullptr` es un literal que representa un puntero nulo, reemplazando a `NULL` de C. La principal ventaja es que es un tipo seguro, ya que `nullptr` es de tipo `std::nullptr_t` y no puede ser confundido con otros valores como enteros o punteros no válidos.
+
+**Ejemplo:**
+- `int* ptr = nullptr;` asigna un puntero nulo a `ptr`.
+
+### `const`
+El modificador `const` en C++ se usa para declarar que una variable no puede cambiar su valor después de ser inicializada. Es especialmente útil en funciones, para asegurar que ciertos parámetros no se modifiquen accidentalmente.
+
+- Se puede usar con variables, punteros, y miembros de clases.
+
+**Ejemplo:**
+- `const int a = 10;` declara una constante `a` que no puede cambiar.
+- `const int* ptr;` declara un puntero a una constante, lo que significa que el valor apuntado no puede ser modificado a través de ese puntero.
+
+### `static`
+El modificador `static` tiene varios usos en C++:
+- **En variables dentro de funciones**: Las variables declaradas como `static` mantienen su valor entre llamadas a la función.
+- **En funciones miembro de clases**: Las funciones estáticas pertenecen a la clase y no a instancias de la misma, lo que significa que se pueden llamar sin crear un objeto.
+
+**Ejemplo:**
+- `static int contador = 0;` mantiene la variable `contador` entre llamadas sucesivas a la función.
+- `static void metodoEstatico();` define una función estática que puede ser llamada sin una instancia de la clase.
+
+### `friend`
+La palabra clave `friend` en C++ permite que una función o clase acceda a los miembros privados y protegidos de otra clase. Esto es útil cuando una función o clase necesita interactuar con los detalles internos de otra clase sin ser parte de ella.
+
+**Ejemplo:**
+- `friend class MiClase;` otorga acceso a todos los miembros privados y protegidos de la clase `MiClase` a la clase que declara este `friend`.
+
+### `explicit`
+El modificador `explicit` se utiliza en C++ para evitar que el compilador haga conversiones implícitas automáticas de tipos. Esto es útil en constructores que no deben ser llamados de forma implícita cuando se realiza una conversión de tipo.
+
+**Ejemplo:**
+- `explicit MiClase(int x);` asegura que el constructor solo se llame cuando se pasa un `int` explícitamente, evitando conversiones automáticas no deseadas.
+
+### `virtual` y `override`
+En C++, el modificador `virtual` se usa para declarar funciones que pueden ser sobrecargadas en clases derivadas. Esto es una parte fundamental del polimorfismo.
+
+- **`virtual`** indica que la función puede ser sobrescrita.
+- **`override`** se usa para garantizar que una función está sobrescribiendo correctamente una función virtual de la clase base.
+
+**Ejemplo:**
+- `virtual void hacerSonido();` en la clase base permite que las clases derivadas implementen su propia versión de la función.
+- `void hacerSonido() override;` en la clase derivada asegura que la función sobrescribe correctamente a la función de la clase base.
+
+### `typedef` y `using`
+En C++, `typedef` se usa para crear un alias de tipo, lo que facilita el trabajo con tipos complejos o largos. La palabra clave `using` se ha introducido como una forma moderna de hacer lo mismo que `typedef`, pero con una sintaxis más clara.
+
+**Ejemplo:**
+- `typedef unsigned long long ULL;` crea un alias `ULL` para `unsigned long long`.
+- `using ULL = unsigned long long;` es una alternativa moderna a `typedef`.
+
+### `decltype`
+El operador `decltype` permite obtener el tipo de una expresión en C++. Es útil cuando se trabaja con tipos complejos o cuando no se conoce el tipo de antemano.
+
+**Ejemplo:**
+- `decltype(x) y;` declara una variable `y` del mismo tipo que `x`.
+
+### `typeid`
+El operador `typeid` se utiliza para obtener el tipo de una expresión en tiempo de ejecución. Es especialmente útil cuando se trabaja con polimorfismo y punteros a clases base.
+
+**Ejemplo:**
+- `typeid(*obj).name();` devuelve el nombre del tipo de la instancia apuntada por `obj`.
