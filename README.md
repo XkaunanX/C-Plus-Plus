@@ -109,32 +109,53 @@ El uso de herencia múltiple permite que las clases hereden propiedades y compor
 
 ```cpp
 #include <iostream>
+#include <string>
 
-class Animal {
+using namespace std;
+
+// Clase base 1
+class Persona {
 public:
-    std::string nombre;
-    Animal(std::string n) : nombre(n) {}
-    
-    void hablar() {
-        std::cout << nombre << " hace un sonido" << std::endl;
+    string nombre;
+
+    Persona(string _nombre) : nombre(_nombre) {}
+
+    void mostrarNombre() {
+        cout << "Nombre: " << nombre << endl;
     }
 };
 
-class Perro : public Animal {
+// Clase base 2
+class Trabajador {
 public:
-    Perro(std::string n) : Animal(n) {}
-    
-    void hablar() override {
-        std::cout << nombre << " dice guau!" << std::endl;
+    string profesion;
+
+    Trabajador(string _profesion) : profesion(_profesion) {}
+
+    void mostrarProfesion() {
+        cout << "Profesion: " << profesion << endl;
+    }
+};
+
+// Clase derivada que hereda de Persona y Trabajador
+class Ingeniero : public Persona, public Trabajador {
+public:
+    Ingeniero(string _nombre, string _profesion) 
+        : Persona(_nombre), Trabajador(_profesion) {}
+
+    void mostrarInformacion() {
+        mostrarNombre();
+        mostrarProfesion();
     }
 };
 
 int main() {
-    Perro perro1("Fido");
-    perro1.hablar();  // Llamada al metodo de la clase Perro
-    
+    Ingeniero ingeniero("Juan Perez", "Ingeniero Civil");
+    ingeniero.mostrarInformacion();
+
     return 0;
 }
+
 ```
 
 ### 5. Portabilidad
