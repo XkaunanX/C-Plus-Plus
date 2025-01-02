@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <list>
 
 #define STATUS_CONTINUAR 1
 
@@ -13,138 +14,26 @@ struct Data {
     int valor;
 };
 
-// Estructura para el nodo de una lista enlazada
-struct Nodo {
-    Data Dato;
-    Nodo* siguiente;
-};
+// Funcion para generar numero aleatorio
+static int int_aleatorio() {
+    return rand() % 100;
+}
 
-// Clase para gestionar la lista enlazada
-class ListaEnlazada {
-private:
-    Nodo* cabeza;
-    Nodo* final;
-    int longitud;
+// Funcion para imprimir la lista
+void imprimir_lista(std::list<Data>& lista) {
+    std::cout << "Contenido de la lista enlazada:\n";
+    std::cout << "--------------------------------------------------\n";
+    std::cout << "|  i  |   Valor   |\n";
+    std::cout << "--------------------------------------------------\n";
 
-public:
-    // Constructor
-    ListaEnlazada() {
-        cabeza = nullptr;
-        final = nullptr;
-        longitud = 0;
+    for (auto& nodo : lista) {
+        std::cout << "| " << nodo.i << " | " << nodo.valor << " |\n";
     }
-
-    // Métodos para gestionar la lista
-    void insertar_nodo(Data dato) {
-        Nodo* nuevo_nodo = new Nodo;
-        nuevo_nodo->Dato = dato;
-        nuevo_nodo->siguiente = nullptr;
-        
-        if (cabeza == nullptr) {
-            cabeza = nuevo_nodo;
-            final = nuevo_nodo;
-        } else {
-            final->siguiente = nuevo_nodo;
-            final = nuevo_nodo;
-        }
-        longitud++;
-    }
-
-    void eliminar_nodo(int id) {
-        Nodo* nodo_anterior = nullptr;
-        Nodo* nodo_actual = cabeza;
-        if (cabeza == nullptr) {
-            std::cout << "La lista está vacía\n";
-            return;
-        }
-
-        while (nodo_actual != nullptr) {
-            if (nodo_actual->Dato.i == id) {
-                if (nodo_anterior == nullptr) {
-                    cabeza = nodo_actual->siguiente;
-                } else {
-                    nodo_anterior->siguiente = nodo_actual->siguiente;
-                }
-                if (nodo_actual == final) {
-                    final = nodo_anterior;
-                }
-                delete nodo_actual;
-                longitud--;
-                return;
-            }
-            nodo_anterior = nodo_actual;
-            nodo_actual = nodo_actual->siguiente;
-        }
-    }
-
-    void modificar_nodo(int id) {
-        Nodo* nodo_actual = cabeza;
-        if (cabeza == nullptr) {
-            std::cout << "Vacio\n";
-            return;
-        }
-        while (nodo_actual != nullptr) {
-            if (nodo_actual->Dato.i == id) {
-                nodo_actual->Dato.valor = int_aleatorio();
-                return;
-            }
-            nodo_actual = nodo_actual->siguiente;
-        }
-    }
-
-    Nodo* consultar_nodo(int id) {
-        Nodo* nodo_actual = cabeza;
-        if (cabeza == nullptr) {
-            return nullptr;
-        }
-        while (nodo_actual != nullptr) {
-            if (nodo_actual->Dato.i == id) {
-                return nodo_actual;
-            }
-            nodo_actual = nodo_actual->siguiente;
-        }
-        return nullptr;
-    }
-
-    int obtener_longitud() {
-        return longitud;
-    }
-
-    void imprimir_lista() {
-        Nodo* nodo_actual = cabeza;
-        std::cout << "Contenido de la lista enlazada:\n";
-        std::cout << "--------------------------------------------------\n";
-        std::cout << "|  i  |   Valor   |     Direccion     |   Siguiente   |\n";
-        std::cout << "--------------------------------------------------\n";
-
-        while (nodo_actual != nullptr) {
-            std::cout << "| " << nodo_actual->Dato.i << " | " << nodo_actual->Dato.valor 
-                      << " | " << nodo_actual << " | " << nodo_actual->siguiente << " |\n";
-            nodo_actual = nodo_actual->siguiente;
-        }
-        std::cout << "--------------------------------------------------\n";
-    }
-
-    void imprimir_nodo(Nodo* nodo) {
-        if (nodo == nullptr) {
-            std::cout << "El nodo es NULL. No se puede imprimir.\n";
-            return;
-        }
-        std::cout << "Detalles del nodo:\n";
-        std::cout << "ID: " << nodo->Dato.i << "\n";
-        std::cout << "Valor: " << nodo->Dato.valor << "\n";
-        std::cout << "Direccion: " << nodo << "\n";
-        std::cout << "Siguiente: " << nodo->siguiente << "\n";
-    }
-
-public:
-    int int_aleatorio() {
-        return rand() % 100;
-    }
-};
+    std::cout << "--------------------------------------------------\n";
+}
 
 // Funcion para la gestion de la consola
-void menu_consola(ListaEnlazada& lista) {
+void menu_consola(std::list<Data>& lista) {
     int interfaz = 1;
     int seleccion;
     int size;
@@ -168,28 +57,38 @@ void menu_consola(ListaEnlazada& lista) {
                 id++;
                 Data dato;
                 dato.i = id;
-                dato.valor = lista.int_aleatorio();
-                lista.insertar_nodo(dato);
+                dato.valor = int_aleatorio();
+                lista.push_back(dato);
                 break;
             case 2:
                 std::cout << "> Ingrese un id: ";
                 std::cin >> i;
-                lista.eliminar_nodo(i);
+                lista.remove_if([i](const Data& dato) { return dato.i == i; });
                 break;
             case 3:
                 std::cout << "> Ingrese un id: ";
                 std::cin >> i;
-                lista.modificar_nodo(i);
+                for (auto& nodo : lista) {
+                    if (nodo.i == i) {
+                        nodo.valor = int_aleatorio();
+                        break;
+                    }
+                }
                 break;
             case 4:
                 std::cout << "> Ingrese un id: ";
                 std::cin >> i;
-                Nodo* nodo = lista.consultar_nodo(i);
-                lista.imprimir_nodo(nodo);
+                for (const auto& nodo : lista) {
+                    if (nodo.i == i) {
+                        std::cout << "ID: " << nodo.i << "\n";
+                        std::cout << "Valor: " << nodo.valor << "\n";
+                        break;
+                    }
+                }
                 break;
             case 5:
-                size = lista.obtener_longitud();
-                std::cout << "Tamaño de la lista enlazada: " << size << "\n";
+                size = lista.size();
+                std::cout << "Tamano de la lista enlazada: " << size << "\n";
                 break;
             case 0:
                 std::cout << "Fin programa ...\n";
@@ -199,7 +98,7 @@ void menu_consola(ListaEnlazada& lista) {
                 std::cout << "Error: ingreso un valor incorrecto\n";
                 break;
         }
-        lista.imprimir_lista();
+        imprimir_lista(lista);
         system("PAUSE");
     }
 }
@@ -208,7 +107,7 @@ void menu_consola(ListaEnlazada& lista) {
 int main() {
     ejecucion = 1;
     srand(time(NULL));
-    ListaEnlazada lista;
+    std::list<Data> lista;
     while (ejecucion == STATUS_CONTINUAR) {
         menu_consola(lista);
     }
