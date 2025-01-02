@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <stack>
 
 #define STATUS_CONTINUAR 1
 
@@ -13,98 +14,28 @@ struct Data {
     int valor;
 };
 
-// Nodo de la pila
-struct Nodo {
-    Data Dato;
-    Nodo* siguiente;
-};
+// Funcion para generar numero aleatorio
+static int int_aleatorio() {
+    return rand() % 100;
+}
 
-// Clase para gestionar la pila
-class Pila {
-private:
-    Nodo* tope;       // Nodo superior de la pila
-    int longitud;     // Número de nodos en la pila
-
-public:
-    // Constructor
-    Pila() {
-        tope = nullptr;
-        longitud = 0;
+// Funcion para imprimir la pila
+void imprimir_pila(std::stack<Data>& pila) {
+    std::stack<Data> pila_temp = pila;
+    std::cout << "Contenido de la pila:\n";
+    std::cout << "------------------------------------------\n";
+    std::cout << "|  i  |   Valor   |\n";
+    std::cout << "------------------------------------------\n";
+    while (!pila_temp.empty()) {
+        Data dato = pila_temp.top();
+        std::cout << "| " << dato.i << " | " << dato.valor << " |\n";
+        pila_temp.pop();
     }
+    std::cout << "------------------------------------------\n";
+}
 
-    // Métodos para gestionar la pila
-    void push(Data dato) {
-        Nodo* nuevo_nodo = new Nodo;
-        nuevo_nodo->Dato = dato;
-        nuevo_nodo->siguiente = tope;
-        tope = nuevo_nodo;
-        longitud++;
-        std::cout << "Elemento insertado: ID = " << dato.i << ", Valor = " << dato.valor << "\n";
-    }
-
-    void pop() {
-        if (pila_vacia()) {
-            std::cout << "La pila está vacía. No se puede eliminar.\n";
-            return;
-        }
-        Nodo* nodo_a_eliminar = tope;
-        tope = tope->siguiente;
-        std::cout << "Elemento eliminado: ID = " << nodo_a_eliminar->Dato.i << ", Valor = " << nodo_a_eliminar->Dato.valor << "\n";
-        delete nodo_a_eliminar;
-        longitud--;
-    }
-
-    Nodo* peek() {
-        if (pila_vacia()) {
-            std::cout << "La pila está vacía.\n";
-            return nullptr;
-        }
-        return tope;
-    }
-
-    bool pila_vacia() {
-        return tope == nullptr;
-    }
-
-    int obtener_longitud() {
-        return longitud;
-    }
-
-    // Función para generar número aleatorio
-    static int int_aleatorio() {
-        return rand() % 100;
-    }
-
-    // Función para imprimir la pila
-    void imprimir_pila() {
-        Nodo* nodo_actual = tope;
-        std::cout << "Contenido de la pila:\n";
-        std::cout << "------------------------------------------\n";
-        std::cout << "|  i  |   Valor   |     Direccion     |\n";
-        std::cout << "------------------------------------------\n";
-        while (nodo_actual != nullptr) {
-            std::cout << "| " << nodo_actual->Dato.i << " | " << nodo_actual->Dato.valor
-                      << " | " << nodo_actual << " |\n";
-            nodo_actual = nodo_actual->siguiente;
-        }
-        std::cout << "------------------------------------------\n";
-    }
-
-    // Función para imprimir el nodo superior
-    void imprimir_nodo(Nodo* nodo) {
-        if (nodo == nullptr) {
-            std::cout << "El nodo es NULL. No se puede imprimir.\n";
-            return;
-        }
-        std::cout << "Detalles del nodo superior:\n";
-        std::cout << "ID: " << nodo->Dato.i << "\n";
-        std::cout << "Valor: " << nodo->Dato.valor << "\n";
-        std::cout << "Direccion: " << nodo << "\n";
-    }
-};
-
-// Función para la gestión de la consola
-void menu_consola(Pila& pila) {
+// Funcion para la gestion de la consola
+void menu_consola(std::stack<Data>& pila) {
     int interfaz = 1;
     int seleccion;
     while (interfaz == STATUS_CONTINUAR) {
@@ -125,20 +56,32 @@ void menu_consola(Pila& pila) {
                 id++;
                 Data dato;
                 dato.i = id;
-                dato.valor = Pila::int_aleatorio();
+                dato.valor = int_aleatorio();
                 pila.push(dato);
+                std::cout << "Elemento insertado: ID = " << dato.i << ", Valor = " << dato.valor << "\n";
                 break;
             case 2:
-                pila.pop();
+                if (pila.empty()) {
+                    std::cout << "La pila esta vacia. No se puede eliminar.\n";
+                } else {
+                    Data dato = pila.top();
+                    pila.pop();
+                    std::cout << "Elemento eliminado: ID = " << dato.i << ", Valor = " << dato.valor << "\n";
+                }
                 break;
             case 3:
-                pila.imprimir_nodo(pila.peek());
+                if (pila.empty()) {
+                    std::cout << "La pila esta vacia.\n";
+                } else {
+                    Data dato = pila.top();
+                    std::cout << "Elemento superior: ID = " << dato.i << ", Valor = " << dato.valor << "\n";
+                }
                 break;
             case 4:
-                pila.imprimir_pila();
+                imprimir_pila(pila);
                 break;
             case 5:
-                std::cout << "Tamaño de la pila: " << pila.obtener_longitud() << "\n";
+                std::cout << "Tamano de la pila: " << pila.size() << "\n";
                 break;
             case 0:
                 std::cout << "Fin programa ...\n";
@@ -152,11 +95,11 @@ void menu_consola(Pila& pila) {
     }
 }
 
-// Función principal
+// Funcion principal
 int main() {
     ejecucion = 1;
     srand(time(NULL));
-    Pila pila;
+    std::stack<Data> pila;
     menu_consola(pila);
     return 0;
 }
