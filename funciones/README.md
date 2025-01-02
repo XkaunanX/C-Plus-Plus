@@ -1,35 +1,80 @@
-# Declaracion y Definicion de Funciones en c++
+# Comparacion de Funciones en C y C++
 
-En C++, una funcion debe ser declarada antes de ser usada. La declaracion especifica el tipo de valor que la funcion devolvera y los parametros que tomara (si es que tiene). La definicion de la funcion es donde se describe el cuerpo de la funcion, es decir, que hace la funcion cuando es llamada.
+Las funciones en C y en C++ tienen similitudes, pero tambien presentan diferencias clave debido a las caracteristicas y funcionalidades adicionales que ofrece C++. A continuacion, se comparan los conceptos de funciones en ambos lenguajes.
 
-## Funciones Inline
+## 1. Declaracion y Definicion de Funciones
+- **C**: 
+  - En C, una funcion debe ser declarada (prototipo) antes de su uso si la definicion no esta antes de la llamada.
+  - La declaracion define el tipo de retorno y los parametros que la funcion tomara.
 
-Una funcion `inline` es una funcion cuya definicion se incluye directamente en el lugar donde se llama. Esto puede mejorar el rendimiento al eliminar la sobrecarga de la llamada a la funcion. Sin embargo, se debe usar con precaucion, ya que la expansion de la funcion inline puede aumentar el tamaño del codigo.
+- **C++**:
+  - Al igual que en C, una funcion debe ser declarada antes de su uso. Sin embargo, C++ permite una mayor flexibilidad en cuanto a tipos y parametros, y permite la sobrecarga de funciones, lo que significa que pueden existir multiples funciones con el mismo nombre pero con diferentes firmas (tipos y numero de parametros).
 
-## Funciones Recursivas
+## 2. Sobrecarga de Funciones
+- **C**:
+  - C no soporta la sobrecarga de funciones. Cada funcion debe tener un nombre unico.
+  
+- **C++**:
+  - C++ permite la sobrecarga de funciones, lo que significa que se pueden definir varias funciones con el mismo nombre pero con diferentes tipos de parametros. Esto es especialmente util para implementar funciones que realizan operaciones similares pero con diferentes tipos de datos.
 
-Una funcion recursiva es una funcion que se llama a si misma. Este tipo de funcion es util en algoritmos que pueden ser divididos en subproblemas similares, como en el caso de las estructuras de arbol o cuando se trabaja con algoritmos de busqueda y ordenamiento.
+## 3. Funciones Inline
+- **C**:
+  - En C, la palabra clave `inline` tambien esta disponible y funciona de manera similar, indicando que el compilador debe intentar insertar el cuerpo de la funcion en cada lugar donde se llama, eliminando la sobrecarga de la llamada a la funcion. Sin embargo, el uso de `inline` no es tan comun.
+  
+- **C++**:
+  - En C++, el uso de `inline` tambien es comun, especialmente para funciones pequenas. El compilador puede decidir no hacer inline si lo considera inapropiado (por ejemplo, si la funcion es demasiado compleja).
 
-## Funciones Variadic
+## 4. Funciones Variadic
+- **C**:
+  - C permite el uso de funciones variadic a traves de macros definidas en `<stdarg.h>`, como `va_start`, `va_arg` y `va_end`.
 
-Las funciones variadic son funciones que pueden recibir un numero variable de argumentos. Esto se logra mediante el uso de macros como `va_start`, `va_arg`, y `va_end` o mediante el uso de plantillas (`templates`).
+- **C++**:
+  - C++ introduce un enfoque mas moderno y seguro para funciones variadic mediante las plantillas variadic (`variadic templates`), que permiten un manejo de argumentos mas flexible y sin macros.
 
-## Sobrecarga de Funciones
+## 5. Funciones Amigas
+- **C**:
+  - En C no existe el concepto de "funcion amiga". Las funciones no pueden acceder a los miembros privados de una estructura de forma directa. La gestion de datos internos se hace de forma mas explicita.
 
-C++ permite que varias funciones tengan el mismo nombre pero con diferentes tipos o numeros de parametros. Esto se conoce como sobrecarga de funciones. La sobrecarga se resuelve en tiempo de compilacion y permite que el mismo nombre de funcion sea utilizado para realizar diferentes tareas.
+- **C++**:
+  - C++ introduce las "funciones amigas" (con la palabra clave `friend`), que permiten que una funcion externa pueda acceder a los miembros privados y protegidos de una clase. Esto es util para implementar ciertas operaciones sin hacer los datos completamente publicos.
 
-## Funciones Amigas (Friend Functions)
+## 6. Enlace Estatico y Dinamico
+- **C**:
+  - El enlace de funciones en C es estatico, lo que significa que la direccion de la funcion se resuelve en tiempo de compilacion.
+  
+- **C++**:
+  - En C++, ademas del enlace estatico, existe el enlace dinamico, especialmente cuando se utiliza el polimorfismo. Las funciones virtuales permiten que la llamada a una funcion sea resuelta en tiempo de ejecucion, dependiendo del tipo de objeto que se este utilizando.
 
-Las funciones amigas son aquellas que no pertenecen a una clase, pero pueden acceder a sus miembros privados o protegidos. Esto permite que una funcion externa pueda operar sobre los datos internos de una clase sin ser parte de ella.
+## 7. Retorno por Referencia y Punteros
+- **C**:
+  - En C, se puede retornar punteros a datos, pero no es posible retornar por referencia como en C++.
 
-## Enlace Estático y Dinámico
+- **C++**:
+  - C++ permite devolver valores por referencia, lo que significa que las funciones pueden modificar directamente los valores de los argumentos pasados. Tambien es posible devolver punteros, pero con la ventaja de un manejo mas seguro de la memoria (con punteros inteligentes).
 
-El enlace de funciones en C++ puede ser estático o dinámico. El enlace estático ocurre cuando la llamada a la funcion se resuelve en tiempo de compilacion, mientras que el enlace dinamico ocurre cuando la funcion se resuelve en tiempo de ejecucion. Este ultimo es mas comun en el uso de polimorfismo.
+## 8. Funciones Lambda
+- **C**:
+  - C no soporta funciones lambda. Si se necesita una funcion anonima, se debe recurrir a funciones tradicionales o usar punteros a funciones.
 
-## Tipos de Retorno y Punteros a Funciones
+- **C++**:
+  - C++ soporta funciones lambda, lo que permite la creacion de funciones anonimas directamente en el lugar donde se usan, lo que es muy util en funciones como aquellas que se pasan a algoritmos de la STL.
 
-En C++, una funcion puede devolver cualquier tipo de dato, incluyendo punteros o referencias. Ademas, es posible definir punteros a funciones, lo que permite almacenar y llamar a funciones de manera dinámica.
+## 9. Polimorfismo y Funciones Virtuales
+- **C**:
+  - En C, no existe el concepto de clases y objetos, por lo tanto no hay soporte para polimorfismo o funciones virtuales.
 
-## Funciones Lambda
+- **C++**:
+  - C++ permite el polimorfismo mediante funciones virtuales. Las funciones virtuales permiten que una funcion definida en una clase base sea sobreescrita en una clase derivada, y que la llamada a la funcion se resuelva en tiempo de ejecucion.
 
-Las funciones lambda son funciones anónimas que pueden ser definidas en cualquier parte del código. Son especialmente útiles en operaciones que requieren una funcion como parametro, como en el caso de las algoritmos de la STL (Biblioteca Estándar de Plantillas).
+## Resumen de Diferencias
+
+| Caracteristica                  | C                               | C++                               |
+|----------------------------------|---------------------------------|-----------------------------------|
+| Sobrecarga de funciones          | No soportada                    | Soportada                         |
+| Funciones Inline                 | Soportada, pero menos comun     | Soportada, mas utilizada          |
+| Funciones Variadic               | Usadas con macros               | Usadas con plantillas variadic    |
+| Funciones Amigas                 | No existe                       | Soportada con la palabra clave `friend` |
+| Polimorfismo y Funciones Virtuales| No existe                       | Soportado con clases y funciones virtuales |
+| Lambda                           | No soportado                    | Soportado                         |
+| Enlace Dinamico                  | No existe                       | Soportado (polimorfismo)          |
+
