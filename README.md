@@ -75,7 +75,35 @@ int main() {
 ```
 
 ### 4. Paradigma (Programacion Orientada a Objetos - POO)
-C++ soporta la programacion orientada a objetos (POO), un paradigma que organiza el software en "objetos" que combinan datos y las funciones que operan sobre esos datos. Esto facilita la modularidad, reutilizacion de codigo y mantenimiento del software.
+
+En C++, la programación orientada a objetos (POO) es un paradigma fundamental que organiza el software en unidades llamadas "objetos". Estos objetos combinan atributos (datos) y métodos (funciones) que operan sobre esos datos. A continuación, se detallan los aspectos principales de las clases en C++.
+
+#### Constructor y Destructor
+- **Constructor**: Es un método especial que se ejecuta automáticamente cuando se crea un objeto de la clase. Su propósito es inicializar los atributos del objeto. Los constructores pueden ser sobrecargados, lo que permite crear objetos de distintas formas.
+  
+- **Destructor**: Es un método especial que se ejecuta automáticamente cuando un objeto es destruido o fuera de alcance. Su función principal es liberar los recursos que el objeto haya adquirido durante su vida útil, como la memoria dinámica.
+
+#### Atributos de la Clase
+Los atributos de una clase son las variables que representan el estado de un objeto. Cada instancia de la clase tendrá sus propios valores para estos atributos. Los atributos pueden ser públicos, privados o protegidos, lo que se define mediante los modificadores de acceso.
+
+#### Modificadores de Acceso
+C++ ofrece tres niveles de acceso a los miembros de una clase:
+- **`public`**: Los miembros son accesibles desde cualquier parte del programa.
+- **`private`**: Los miembros son accesibles solo dentro de la propia clase. Es el nivel de acceso por defecto.
+- **`protected`**: Los miembros son accesibles dentro de la clase y en las clases derivadas.
+
+#### Métodos de la Clase
+Los métodos de una clase son funciones que operan sobre los atributos de la clase y que definen el comportamiento de los objetos. Los métodos pueden ser:
+- **Métodos estáticos**: Pertenecen a la clase en sí, y no a las instancias individuales. Se accede a ellos sin necesidad de crear un objeto.
+- **Métodos de instancia**: Pertenecen a objetos específicos y operan sobre los atributos del objeto.
+
+#### Métodos de Instancia
+Son funciones miembro que solo pueden ser invocadas en instancias específicas de la clase. Un método de instancia generalmente manipula los atributos no estáticos del objeto.
+
+#### Herencia Múltiple
+C++ permite la **herencia múltiple**, lo que significa que una clase puede heredar de más de una clase base. Esto se logra porque C++ soporta la herencia de varias clases simultáneamente, lo que le da flexibilidad para construir jerarquías más complejas y reutilizar código de diferentes fuentes. La herencia múltiple puede ser útil cuando una clase necesita combinar comportamientos de varias clases base, pero requiere un manejo adecuado para evitar problemas como la ambigüedad en la herencia (por ejemplo, métodos con el mismo nombre en clases base distintas).
+
+El uso de herencia múltiple permite que las clases hereden propiedades y comportamientos de varias clases base, lo que fomenta la reutilización del código y la modularidad. Sin embargo, puede requerir un diseño cuidadoso para manejar conflictos y garantizar que las clases derivadas mantengan coherencia en su estructura.
 
 **Ejemplo:**
 
