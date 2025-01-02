@@ -205,30 +205,7 @@ int main() {
 }
 ```
 
-### 10. Palabras Claves
-Algunas de las palabras clave utilizadas en C++ incluyen:
-- `int`, `char`, `float`, `double`, `void`: Tipos de datos.
-- `class`, `public`, `private`, `protected`: Definicion de clases y especificadores de acceso.
-- `if`, `else`, `for`, `while`, `switch`: Control de flujo.
-- `new`, `delete`: Manejo de memoria dinamica.
-- `virtual`, `override`: Polimorfismo y herencia.
-
-### 11. Operadores
-C++ incluye una gran variedad de operadores, como:
-- **Aritmeticos**: `+`, `-`, `*`, `/`, `%`.
-- **Comparacion**: `==`, `!=`, `>`, `<`, `>=`, `<=`.
-- **Logicos**: `&&`, `||`, `!`.
-- **Asignacion**: `=`, `+=`, `-=`, `*=`, `/=`.
-- **Punteros**: `*`, `&`.
-
-### 12. Especificadores de Formato
-C++ utiliza especificadores de formato para la entrada y salida de datos. Algunos de los especificadores mas comunes son:
-- `%d`: Para enteros.
-- `%f`: Para flotantes.
-- `%s`: Para cadenas.
-- `%p`: Para punteros.
-
-## Palabras claves comunes en C++ 
+## 10. Palabras claves comunes en C++ 
 
 ### `cout` y `<<`
 En C++, `cout` es un objeto de la biblioteca estándar de entrada/salida (`iostream`) que se utiliza para imprimir datos en la consola. Se encuentra en el espacio de nombres `std`. Para imprimir datos, se usa el operador `<<`, que se conoce como "operador de inserción". Este operador toma el dato que le sigue y lo envía a `cout` para que sea mostrado en la pantalla.
@@ -355,3 +332,18 @@ El operador `typeid` se utiliza para obtener el tipo de una expresión en tiempo
 
 **Ejemplo:**
 - `typeid(*obj).name();` devuelve el nombre del tipo de la instancia apuntada por `obj`.
+
+### 11. Operadores
+C++ incluye una gran variedad de operadores, como:
+- **Aritmeticos**: `+`, `-`, `*`, `/`, `%`.
+- **Comparacion**: `==`, `!=`, `>`, `<`, `>=`, `<=`.
+- **Logicos**: `&&`, `||`, `!`.
+- **Asignacion**: `=`, `+=`, `-=`, `*=`, `/=`.
+- **Punteros**: `*`, `&`.
+
+### 12. Especificadores de Formato
+C++ utiliza especificadores de formato para la entrada y salida de datos. Algunos de los especificadores mas comunes son:
+- `%d`: Para enteros.
+- `%f`: Para flotantes.
+- `%s`: Para cadenas.
+- `%p`: Para punteros.
