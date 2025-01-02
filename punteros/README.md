@@ -49,3 +49,17 @@ En C++, los punteros tienen varias similitudes con C, pero también introducen c
 - **C**: Los punteros deben ser inicializados explícitamente antes de ser utilizados, de lo contrario, pueden contener valores indeterminados.
 
 - **C++**: En C++, los punteros inteligentes se inicializan de manera más segura y, en muchos casos, los punteros pueden ser nulos o desreferenciados sin causar fallos graves en el programa.
+
+# Cuadro comparativo
+
+| **Concepto**                         | **C**                                             | **C++**                                           |
+|--------------------------------------|---------------------------------------------------|---------------------------------------------------|
+| **Manejo de Memoria**                | Uso de `malloc()`, `calloc()`, `realloc()`, y `free()` para gestionar memoria. | Uso de punteros tradicionales y punteros inteligentes (`std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`) para gestionar memoria automáticamente. |
+| **Punteros Inteligentes**            | No existen punteros inteligentes. El manejo de memoria es manual. | Introducción de punteros inteligentes que gestionan automáticamente la memoria y previenen fugas. |
+| **Punteros y Referencias**           | Solo existen punteros. No hay referencias.         | Se introducen las referencias, que permiten manipular objetos sin necesidad de punteros. |
+| **Punteros a Miembros de Clase**     | No existe soporte directo para punteros a miembros de estructuras o clases. | Soporte para punteros a miembros de clases, lo que permite acceder a miembros no estáticos. |
+| **Sobrecarga de Operadores**         | No se puede sobrecargar operadores.               | Se pueden sobrecargar operadores, incluidos aquellos que interactúan con punteros. |
+| **Punteros a Funciones**             | Uso de punteros a funciones para llamadas dinámicas. | Similar a C, pero con mayor flexibilidad gracias a punteros a funciones miembro. |
+| **Seguridad de Punteros**            | No hay mecanismos de seguridad, lo que puede llevar a errores de acceso a memoria. | Uso de punteros inteligentes que ayudan a evitar errores de acceso indebido a memoria. |
+| **Inicialización de Punteros**      | Los punteros deben ser inicializados explícitamente para evitar valores indeterminados. | Los punteros inteligentes y las referencias se inicializan de manera más segura, reduciendo errores comunes. |
+
