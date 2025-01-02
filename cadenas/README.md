@@ -50,5 +50,3 @@ Las cadenas de estilo C emplean funciones como `strchr()` y `strstr()` para busc
 - **Cadenas de estilo C**: Representadas como arreglos de caracteres terminados en `'\0'`. Requieren manejo manual de la memoria y el tamaño.
 - **`std::string`**: Una clase de la Biblioteca Estándar de C++ que facilita el manejo de cadenas de caracteres con funciones automáticas para gestión de memoria y operaciones de manipulación.
 - **Ventajas de `std::string`**: Proporciona una forma más segura y sencilla de trabajar con cadenas, gestionando automáticamente la memoria y ofreciendo un conjunto más amplio de operaciones.
-
-En resumen, `std::string` es generalmente la opción preferida para manejar cadenas en C++, mientras que las cadenas de estilo C son útiles en contextos donde el control manual sobre la memoria es necesario o cuando se interactúa con bibliotecas de C.
