@@ -1,8 +1,4 @@
-# Características de la Programación Orientada a Objetos (POO) en C++
-
-La Programación Orientada a Objetos (POO) es un paradigma de programación que organiza el código en "objetos", los cuales encapsulan datos y comportamientos. C++ es un lenguaje que soporta de manera robusta la POO, permitiendo a los programadores crear aplicaciones modulares, reutilizables y escalables.
-
-A continuación, se describen las características principales de la POO en C++ y cómo se implementan en este lenguaje.
+# POO de C++
 
 ## 1. Clases y Objetos
 
@@ -68,13 +64,18 @@ Una interfaz en C++ es similar a una clase abstracta, pero todos sus métodos so
 
 La **composición** es una forma de asociar objetos dentro de otros objetos, en lugar de usar la herencia. La composición permite que los objetos compuestos deleguen tareas a los objetos que contienen, siguiendo el principio de "composición sobre herencia". Esto facilita una mayor modularidad y flexibilidad en el diseño.
 
+### 6.1. Clases Simples
+Una **clase simple** es aquella que está compuesta solo por atributos y métodos que interactúan con esos atributos. No contiene ningún otro objeto dentro de sí misma y es una estructura sencilla para representar conceptos o entidades en el código. Las clases simples son ideales para representar objetos con una sola responsabilidad.
+
+### 6.2. Clases Compuestas
+Una **clase compuesta** es aquella que tiene instancias de otras clases dentro de sí misma como parte de su estructura. Estas clases permiten que los objetos deleguen tareas a otros objetos más especializados, promoviendo una mayor modularidad y reutilización del código. La composición se usa cuando se necesitan representar relaciones "tiene un" entre los objetos, como un automóvil que "tiene un" motor o una biblioteca que "tiene un" conjunto de libros.
+
 ## 7. Destrucción de Objetos
 
 Cuando un objeto ya no es necesario, se destruye automáticamente (en el caso de objetos estáticos) o manualmente (en el caso de objetos dinámicos). La destrucción de objetos es gestionada por el **destructor**, una función especial de la clase que se invoca cuando un objeto sale de su alcance o es destruido explícitamente.
 
 ### 7.1. Destructor
 El destructor se utiliza para liberar recursos adquiridos por un objeto, como memoria dinámica o recursos de archivos. En C++, el destructor se invoca automáticamente cuando el objeto es destruido, y no debe devolver ningún valor ni aceptar parámetros.
-
 
 # Ciclo de Vida de un Objeto en C++
 
